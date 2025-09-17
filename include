@@ -1,0 +1,36 @@
+#pragma once
+#include <string>
+#include <functional>
+
+namespace qichuang {
+
+struct Velocity {
+    double vx;
+    double vy;
+    double wz;
+};
+
+class RobotDog {
+public:
+    RobotDog();
+    ~RobotDog();
+
+    // 1. 健康检查
+    std::string healthCheck();
+
+    // 2. 动作执行
+    bool executeAction(int action_id);
+
+    // 3. 速度控制
+    bool setVelocity(const Velocity& velocity);
+
+    // 4. 定时移动
+    bool timedMove(const Velocity& velocity, double duration);
+
+    // 5. 错误处理
+    std::string getLastError() const;
+
+    // 6. AI语音控制（接口预留）
+    bool enableAIVoiceControl(std::function<void(const std::string&)> onCommand);
+};
+}
