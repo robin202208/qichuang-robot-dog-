@@ -1,0 +1,45 @@
+#include "qichuang_robot_dog.h"
+#include <iostream>
+#include <chrono>
+#include <thread>
+
+namespace qichuang {
+
+RobotDog::RobotDog() {}
+RobotDog::~RobotDog() {}
+
+std::string RobotDog::healthCheck() {
+    return R"({ "status": "ok", "timestamp": )" + std::to_string(std::chrono::duration<double>(std::chrono::system_clock::now().time_since_epoch()).count()) + " }";
+}
+
+bool RobotDog::executeAction(int action_id) {
+    if(action_id < 0) {
+        return false;
+    }
+    // TODO: 实际动作执行逻辑
+    return true;
+}
+
+bool RobotDog::setVelocity(const Velocity& velocity) {
+    // TODO: 实际速度控制逻辑
+    return true;
+}
+
+bool RobotDog::timedMove(const Velocity& velocity, double duration) {
+    setVelocity(velocity);
+    std::this_thread::sleep_for(std::chrono::milliseconds(static_cast<int>(duration*1000)));
+    setVelocity({0,0,0});
+    return true;
+}
+
+std::string RobotDog::getLastError() const {
+    // TODO: 实现错误信息返回
+    return "";
+}
+
+bool RobotDog::enableAIVoiceControl(std::function<void(const std::string&)> onCommand) {
+    // TODO: AI语音核心集成
+    return false;
+}
+
+}
